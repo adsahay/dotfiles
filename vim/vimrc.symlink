@@ -1,4 +1,115 @@
+set nocompatible
 syntax on
 
 " Wrap gitcommit file types at the appropriate length
 filetype indent plugin on
+
+" Lots borrowed from https://github.com/mgill25/dotfiles/blob/master/vim/vimrc
+set nu
+" Hide the toobar and menubar
+set guioptions-=m
+set guioptions-=T
+set guioptions-=r
+set guioptions-=L
+set wildignore=*.dll,*.o,*.pyc,*.bak,*.exe,*.jpg,*.jpeg,*.png,*.gif,*$py.class,*.class,*.zip,*.sw[op]
+set ignorecase 		" Ignore case when searching
+set smartcase		" Ignore case when search pattern all lowercase. Case-sensitive otherwise.
+
+"Indentation Settings. Taken from the Hitchhiker's guide to Python.
+set scrolloff=5
+set title
+set ttyfast
+set expandtab 
+set shiftround
+
+autocmd FileType python set tabstop=4 softtabstop=4 shiftwidth=4
+autocmd FileType javascript set tabstop=2 softtabstop=2 shiftwidth=2
+autocmd FileType javascript setlocal commentstring=//\ %s
+autocmd FileType javascript noremap <buffer> <leader>b :call JsBeautify()<cr>
+autocmd FileType javascript let b:javascript_fold = 0
+autocmd BufNewFile,BufRead *.json setlocal ft=javascript
+let javascript_enable_domhtmlcss=1
+autocmd FileType html,htmldjango set tabstop=2 softtabstop=2 shiftwidth=2
+autocmd FileType json setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
+autocmd FileType yaml setlocal expandtab shiftwidth=2 tabstop=8 softtabstop=2
+autocmd BufNewFile,BufRead *.sls setlocal ft=yaml
+
+" template language support (SGML / XML too)
+" ------------------------------------------
+" and disable that stupid html rendering (like making stuff bold etc)
+autocmd FileType xml,html,htmljinja,htmldjango setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
+autocmd FileType html,htmljinja,htmldjango imap <buffer> <c-e> <Plug>SparkupExecute
+autocmd FileType html,htmljinja,htmldjango imap <buffer> <c-l> <Plug>SparkupNext
+autocmd FileType html setlocal commentstring=<!--\ %s\ -->
+autocmd FileType htmljinja setlocal commentstring={#\ %s\ #}
+autocmd BufWritePre *.py :%s/\s\+$//e   " Removing Trailing Whitespace on buffer write
+autocmd BufWritePre *.go :%s/\s\+$//e   " Removing Trailing Whitespace on buffer write
+autocmd BufRead,BufNewFile **/templates/*.html set filetype=htmljinja
+let html_no_rendering=1
+let g:syntastic_html_checkers = []
+
+" When loading text files, wrap them and don't split up words.
+au BufNewFile,BufRead *.txt setlocal wrap 
+au BufNewFile,BufRead *.txt setlocal lbr
+
+set showcmd
+set laststatus=2                " Always show the status line
+set encoding=utf8
+set backupdir=~/.tmp
+set directory=~/.tmp " Don't clutter my dirs up with swp and tmp files
+
+" Vundle
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
+
+" Let Vundle manage Vundle (required)!
+Bundle 'gmarik/vundle'
+
+" editor goodies
+" file search
+Bundle 'kien/ctrlp.vim'
+" colors and themes
+Bundle 'morhetz/gruvbox'
+Bundle 'daylerees/colour-schemes', { "rtp": "vim/" }
+Bundle 'chriskempson/tomorrow-theme', { "rtp": "vim/" }
+" window management
+Bundle 'zhaocai/GoldenView.Vim'
+" git
+Bundle 'tpope/vim-fugitive'
+" code/generic
+Bundle 'Valloric/YouCompleteMe'
+Bundle 'scrooloose/syntastic'
+" javascript
+" ref: http://oli.me.uk/2013/06/29/equipping-vim-for-javascript/
+Bundle 'marijnh/tern_for_vim'
+Bundle 'jelera/vim-javascript-syntax'
+Bundle 'pangloss/vim-javascript'
+Bundle 'nathanaelkane/vim-indent-guides'
+Bundle 'Raimondi/delimitMate'
+" scss
+Bundle 'cakebaker/scss-syntax.vim'
+
+" These are the tweaks I apply to YCM's config, you don't need them but they
+" might help.
+" YCM gives you popups and splits by default that some people might not
+" like, so these should tidy it up a bit for you.
+let g:ycm_add_preview_to_completeopt=0
+let g:ycm_confirm_extra_conf=0
+set completeopt-=preview
+
+" Goldenview setup
+let g:goldenview__enable_default_mapping=0
+" 1. split to tiled windows
+nmap <silent> <C-L>  <Plug>GoldenViewSplit
+
+" 2. quickly switch current window with the main pane
+" and toggle back
+nmap <silent> <F8>   <Plug>GoldenViewSwitchMain
+nmap <silent> <S-F8> <Plug>GoldenViewSwitchToggle
+
+" 3. jump to next and previous window
+nmap <silent> <C-J>  <Plug>GoldenViewNext
+nmap <silent> <C-K>  <Plug>GoldenViewPrevious
+
+" set colorscheme
+colorscheme Tomorrow-Night-Eightees
