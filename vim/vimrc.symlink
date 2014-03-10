@@ -112,4 +112,4 @@ nmap <silent> <C-J>  <Plug>GoldenViewNext
 nmap <silent> <C-K>  <Plug>GoldenViewPrevious
 
 " set colorscheme
-colorscheme Tomorrow-Night-Eightees
+colorscheme Tomorrow-Night-Eighties
