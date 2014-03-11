@@ -22,7 +22,7 @@ set ttyfast
 set expandtab 
 set shiftround
 
-autocmd FileType python set tabstop=4 softtabstop=4 shiftwidth=4
+" autocmd FileType python set tabstop=4 softtabstop=4 shiftwidth=4
 autocmd FileType javascript set tabstop=2 softtabstop=2 shiftwidth=2
 autocmd FileType javascript setlocal commentstring=//\ %s
 autocmd FileType javascript noremap <buffer> <leader>b :call JsBeautify()<cr>
@@ -38,12 +38,10 @@ autocmd BufNewFile,BufRead *.sls setlocal ft=yaml
 " ------------------------------------------
 " and disable that stupid html rendering (like making stuff bold etc)
 autocmd FileType xml,html,htmljinja,htmldjango setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
-autocmd FileType html,htmljinja,htmldjango imap <buffer> <c-e> <Plug>SparkupExecute
-autocmd FileType html,htmljinja,htmldjango imap <buffer> <c-l> <Plug>SparkupNext
 autocmd FileType html setlocal commentstring=<!--\ %s\ -->
 autocmd FileType htmljinja setlocal commentstring={#\ %s\ #}
 autocmd BufWritePre *.py :%s/\s\+$//e   " Removing Trailing Whitespace on buffer write
-autocmd BufWritePre *.go :%s/\s\+$//e   " Removing Trailing Whitespace on buffer write
+" assumes that files in templates are jinja (though they might be angular)
 autocmd BufRead,BufNewFile **/templates/*.html set filetype=htmljinja
 let html_no_rendering=1
 let g:syntastic_html_checkers = []
@@ -90,6 +88,8 @@ Bundle 'Raimondi/delimitMate'
 Bundle 'cakebaker/scss-syntax.vim'
 " python indentation
 Bundle 'hynek/vim-python-pep8-indent'
+" html
+Bundle 'mitsuhiko/vim-jinja'
 
 " These are the tweaks I apply to YCM's config, you don't need them but they
 " might help.
