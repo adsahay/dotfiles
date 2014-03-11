@@ -88,6 +88,8 @@ Bundle 'nathanaelkane/vim-indent-guides'
 Bundle 'Raimondi/delimitMate'
 " scss
 Bundle 'cakebaker/scss-syntax.vim'
+" python indentation
+Bundle 'hynek/vim-python-pep8-indent'
 
 " These are the tweaks I apply to YCM's config, you don't need them but they
 " might help.
