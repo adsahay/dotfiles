@@ -6,6 +6,8 @@ filetype indent plugin on
 
 " Lots borrowed from https://github.com/mgill25/dotfiles/blob/master/vim/vimrc
 set nu
+set gdefault
+
 " Hide the toobar and menubar
 set guioptions-=m
 set guioptions-=T
@@ -66,6 +68,8 @@ Bundle 'gmarik/vundle'
 " editor goodies
 " file search
 Bundle 'kien/ctrlp.vim'
+" cursor toggle
+Bundle 'jszakmeister/vim-togglecursor'
 " colors and themes
 Bundle 'morhetz/gruvbox'
 Bundle 'daylerees/colour-schemes', { "rtp": "vim/" }
@@ -74,9 +78,6 @@ Bundle 'chriskempson/tomorrow-theme', { "rtp": "vim/" }
 Bundle 'zhaocai/GoldenView.Vim'
 " git
 Bundle 'tpope/vim-fugitive'
-" code/generic
-Bundle 'Valloric/YouCompleteMe'
-Bundle 'scrooloose/syntastic'
 " javascript
 " ref: http://oli.me.uk/2013/06/29/equipping-vim-for-javascript/
 Bundle 'marijnh/tern_for_vim'
@@ -90,6 +91,9 @@ Bundle 'cakebaker/scss-syntax.vim'
 Bundle 'hynek/vim-python-pep8-indent'
 " html
 Bundle 'mitsuhiko/vim-jinja'
+" code/generic
+Bundle 'scrooloose/syntastic'
+Bundle 'Valloric/YouCompleteMe'
 
 " These are the tweaks I apply to YCM's config, you don't need them but they
 " might help.
