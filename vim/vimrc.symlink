@@ -80,7 +80,7 @@ Bundle 'zhaocai/GoldenView.Vim'
 Bundle 'tpope/vim-fugitive'
 " javascript
 " ref: http://oli.me.uk/2013/06/29/equipping-vim-for-javascript/
-Bundle 'marijnh/tern_for_vim'
+" Bundle 'marijnh/tern_for_vim'
 Bundle 'jelera/vim-javascript-syntax'
 Bundle 'pangloss/vim-javascript'
 Bundle 'nathanaelkane/vim-indent-guides'

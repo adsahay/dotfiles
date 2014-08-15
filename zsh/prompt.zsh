@@ -10,3 +10,6 @@ precmd()
 {
   _update_ps1
 }
+# time on the right side
+# ref: http://www.dawoodfall.net/index.php/en/custom-zsh-prompts
+RPROMPT="[%t]"
