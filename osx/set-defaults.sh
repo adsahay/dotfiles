@@ -8,7 +8,11 @@
 # Run ./set-defaults.sh and you'll be good to go.
 
 # Disable press-and-hold for keys in favor of key repeat.
-defaults write -g ApplePressAndHoldEnabled -bool false
+#defaults write -g ApplePressAndHoldEnabled -bool false
+
+# Set focus to automatically follow mouse to new windows 
+# (OS X Mavericks and newer)
+defaults write com.apple.Terminal FocusFollowsMouse -boolean YES
 
 # Use AirDrop over every interface. srsly this should be a default.
 defaults write com.apple.NetworkBrowser BrowseAllInterfaces 1
@@ -20,7 +24,7 @@ defaults write com.apple.NetworkBrowser BrowseAllInterfaces 1
 chflags nohidden ~/Library
 
 # Set a really fast key repeat.
-defaults write NSGlobalDomain KeyRepeat -int 0
+# defaults write NSGlobalDomain KeyRepeat -int 0
 
 # Set the Finder prefs for showing a few different volumes on the Desktop.
 defaults write com.apple.finder ShowExternalHardDrivesOnDesktop -bool true
@@ -122,12 +126,25 @@ defaults write NSGlobalDomain WebKitDeveloperExtras -bool true
 # Use `sudo mdutil -i off "/Volumes/foo"` to stop indexing any volume.
 sudo defaults write /.Spotlight-V100/VolumeConfiguration Exclusions -array "/Volumes"
 
+# Make sure indexing is enabled for the main volume
+sudo mdutil -i on / > /dev/null
+# Rebuild the index from scratch
+sudo mdutil -E / > /dev/null
+
 ###############################################################################
 # Terminal & iTerm 2                                                          #
 ###############################################################################
 
+# Only use UTF-8 in Terminal.app
+defaults write com.apple.terminal StringEncodings -array 4
+
 # Don’t display the annoying prompt when quitting iTerm
 defaults write com.googlecode.iterm2 PromptOnQuit -bool false
+
+# Enable “focus follows mouse” for Terminal.app and all X11 apps
+# i.e. hover over a window and start typing in it without clicking first
+defaults write com.apple.terminal FocusFollowsMouse -bool true
+defaults write org.x.X11 wm_ffm -bool true
 
 ###############################################################################
 # Mac App Store                                                               #
@@ -139,3 +156,140 @@ defaults write com.apple.appstore WebKitDeveloperExtras -bool false
 # Enable Debug Menu in the Mac App Store
 defaults write com.apple.appstore ShowDebugMenu -bool false
 
+###############################################################################
+# SSD-specific tweaks                                                         #
+###############################################################################
+
+# Disable local Time Machine snapshots
+sudo tmutil disablelocal
+
+# Disable hibernation (speeds up entering sleep mode)
+sudo pmset -a hibernatemode 0
+
+# Remove the sleep image file to save disk space
+sudo rm /Private/var/vm/sleepimage
+# Create a zero-byte file instead…
+sudo touch /Private/var/vm/sleepimage
+# …and make sure it can’t be rewritten
+sudo chflags uchg /Private/var/vm/sleepimage
+
+# Disable the sudden motion sensor as it’s not useful for SSDs
+sudo pmset -a sms 0
+
+###############################################################################
+# Trackpad, mouse, keyboard, Bluetooth accessories, and input                 #
+###############################################################################
+
+# Trackpad: enable tap to click for this user and for the login screen
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool true
+defaults -currentHost write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
+defaults write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
+
+# Trackpad: map bottom right corner to right-click
+#defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadCornerSecondaryClick -int 2
+#defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadRightClick -bool true
+#defaults -currentHost write NSGlobalDomain com.apple.trackpad.trackpadCornerClickBehavior -int 1
+#defaults -currentHost write NSGlobalDomain com.apple.trackpad.enableSecondaryClick -bool true
+
+# Disable “natural” (Lion-style) scrolling
+defaults write NSGlobalDomain com.apple.swipescrolldirection -bool true
+
+# Increase sound quality for Bluetooth headphones/headsets
+defaults write com.apple.BluetoothAudioAgent "Apple Bitpool Min (editable)" -int 40
+
+# Enable full keyboard access for all controls
+# (e.g. enable Tab in modal dialogs)
+defaults write NSGlobalDomain AppleKeyboardUIMode -int 3
+
+# Use scroll gesture with the Ctrl (^) modifier key to zoom
+#defaults write com.apple.universalaccess closeViewScrollWheelToggle -bool true
+#defaults write com.apple.universalaccess HIDScrollZoomModifierMask -int 262144
+# Follow the keyboard focus while zoomed in
+#defaults write com.apple.universalaccess closeViewZoomFollowsFocus -bool true
+
+# Disable auto-correct
+#defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false
+
+# Stop iTunes from responding to the keyboard media keys
+# launchctl unload -w /System/Library/LaunchAgents/com.apple.rcd.plist 2> /dev/null
+
+###############################################################################
+# Screen                                                                      #
+###############################################################################
+
+# Require password immediately after sleep or screen saver begins
+# defaults write com.apple.screensaver askForPassword -int 1
+# defaults write com.apple.screensaver askForPasswordDelay -int 0
+
+# Save screenshots to the desktop
+# defaults write com.apple.screencapture location -string "${HOME}/Desktop"
+
+# Save screenshots in PNG format (other options: BMP, GIF, JPG, PDF, TIFF)
+# defaults write com.apple.screencapture type -string "png"
+
+# Disable shadow in screenshots
+defaults write com.apple.screencapture disable-shadow -bool true
+
+# Enable subpixel font rendering on non-Apple LCDs
+defaults write NSGlobalDomain AppleFontSmoothing -int 2
+
+# Enable HiDPI display modes (requires restart)
+sudo defaults write /Library/Preferences/com.apple.windowserver DisplayResolutionEnabled -bool true
+
+###############################################################################
+# Twitter.app                                                                 #
+###############################################################################
+
+# Disable smart quotes as it’s annoying for code tweets
+defaults write com.twitter.twitter-mac AutomaticQuoteSubstitutionEnabled -bool false
+
+# Show the app window when clicking the menu bar icon
+defaults write com.twitter.twitter-mac MenuItemBehavior -int 1
+
+# Enable the hidden ‘Develop’ menu
+defaults write com.twitter.twitter-mac ShowDevelopMenu -bool true
+
+# Open links in the background
+defaults write com.twitter.twitter-mac openLinksInBackground -bool true
+
+# Allow closing the ‘new tweet’ window by pressing `Esc`
+defaults write com.twitter.twitter-mac ESCClosesComposeWindow -bool true
+
+# Show full names rather than Twitter handles
+defaults write com.twitter.twitter-mac ShowFullNames -bool true
+
+# Hide the app in the background if it’s not the front-most window
+defaults write com.twitter.twitter-mac HideInBackground -bool true
+
+###############################################################################
+# Google Chrome & Google Chrome Canary                                        #
+###############################################################################
+
+# Allow installing user scripts via GitHub Gist or Userscripts.org
+defaults write com.google.Chrome ExtensionInstallSources -array "https://gist.githubusercontent.com/" "http://userscripts.org/*"
+defaults write com.google.Chrome.canary ExtensionInstallSources -array "https://gist.githubusercontent.com/" "http://userscripts.org/*"
+
+# Disable the all too sensitive backswipe
+#defaults write com.google.Chrome AppleEnableSwipeNavigateWithScrolls -bool false
+#defaults write com.google.Chrome.canary AppleEnableSwipeNavigateWithScrolls -bool false
+
+###############################################################################
+# Time Machine                                                                #
+###############################################################################
+
+# Prevent Time Machine from prompting to use new hard drives as backup volume
+defaults write com.apple.TimeMachine DoNotOfferNewDisksForBackup -bool true
+
+# Disable local Time Machine backups
+hash tmutil &> /dev/null && sudo tmutil disablelocal
+
+###############################################################################
+# Kill affected applications                                                  #
+###############################################################################
+
+for app in "Activity Monitor" "Address Book" "Calendar" "Contacts" "cfprefsd" \
+                "Dock" "Finder" "Mail" "Messages" "Safari" "SizeUp" "SystemUIServer" \
+                        "Terminal" "Transmission" "Twitter" "iCal"; do
+        killall "${app}" > /dev/null 2>&1
+done
+echo "Done. Note that some of these changes require a logout/restart to take effect."
