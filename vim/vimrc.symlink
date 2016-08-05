@@ -14,8 +14,8 @@ set guioptions-=T
 set guioptions-=r
 set guioptions-=L
 set wildignore=*.dll,*.o,*.pyc,*.bak,*.exe,*.jpg,*.jpeg,*.png,*.gif,*$py.class,*.class,*.zip,*.sw[op]
-set ignorecase 		" Ignore case when searching
-set smartcase		" Ignore case when search pattern all lowercase. Case-sensitive otherwise.
+set ignorecase 	" Ignore case when searching
+set smartcase   " Ignore case when search pattern all lowercase. Case-sensitive otherwise.
 
 "Indentation Settings. Taken from the Hitchhiker's guide to Python.
 set scrolloff=5
