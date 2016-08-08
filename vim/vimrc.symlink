@@ -13,7 +13,7 @@ set guioptions-=m
 set guioptions-=T
 set guioptions-=r
 set guioptions-=L
-set wildignore=*.dll,*.o,*.pyc,*.bak,*.exe,*.jpg,*.jpeg,*.png,*.gif,*$py.class,*.class,*.zip,*.sw[op]
+set wildignore=*.dll,*.o,*.pyc,*.bak,*.exe,*.jpg,*.jpeg,*.png,*.gif,*$py.class,*.class,*.zip,*.sw[op],*/node_modules,*/.git
 set ignorecase 	" Ignore case when searching
 set smartcase   " Ignore case when search pattern all lowercase. Case-sensitive otherwise.
 
@@ -94,6 +94,8 @@ Bundle 'mitsuhiko/vim-jinja'
 " code/generic
 Bundle 'scrooloose/syntastic'
 " Bundle 'Valloric/YouCompleteMe'
+" ack.vim - great search
+Bundle 'mileszs/ack.vim'
 
 " These are the tweaks I apply to YCM's config, you don't need them but they
 " might help.
@@ -119,3 +121,9 @@ nmap <silent> <C-K>  <Plug>GoldenViewPrevious
 
 " set colorscheme
 colorscheme Tomorrow-Night-Eighties
+set guifont=Menlo:h13
+
+" ctrlp setup
+let g:ctrlp_map = '<c-p>'
+let g:ctrlp_cmd = 'CtrlP'
+let g:ctrlp_working_path_mode = 'ra'
