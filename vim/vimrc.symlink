@@ -16,6 +16,8 @@ set guioptions-=L
 set wildignore=*.dll,*.o,*.pyc,*.bak,*.exe,*.jpg,*.jpeg,*.png,*.gif,*$py.class,*.class,*.zip,*.sw[op],*/node_modules,*/.git
 set ignorecase 	" Ignore case when searching
 set smartcase   " Ignore case when search pattern all lowercase. Case-sensitive otherwise.
+" let &colorcolumn=join(range(81,999),",")
+set colorcolumn=81
 
 "Indentation Settings. Taken from the Hitchhiker's guide to Python.
 set scrolloff=5
@@ -31,7 +33,7 @@ autocmd FileType javascript noremap <buffer> <leader>b :call JsBeautify()<cr>
 autocmd FileType javascript let b:javascript_fold = 0
 autocmd BufNewFile,BufRead *.json setlocal ft=javascript
 let javascript_enable_domhtmlcss=1
-autocmd FileType html,htmldjango set tabstop=2 softtabstop=2 shiftwidth=2
+autocmd FileType html,htmldjango set tabstop=4 softtabstop=4 shiftwidth=4
 autocmd FileType json setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
 autocmd FileType yaml setlocal expandtab shiftwidth=2 tabstop=8 softtabstop=2
 autocmd BufNewFile,BufRead *.sls setlocal ft=yaml
@@ -58,52 +60,59 @@ set encoding=utf8
 set backupdir=~/.tmp
 set directory=~/.tmp " Don't clutter my dirs up with swp and tmp files
 
-" Vundle
-set rtp+=~/.vim/bundle/Vundle.vim/
-call vundle#rc()
-
-" Let Vundle manage Vundle (required)!
-Bundle 'gmarik/vundle'
+" vim-plug is the new Vundle!
+call plug#begin('~/.vim/bundle')
 
 " editor goodies
 " file search
-Bundle 'kien/ctrlp.vim'
+Plug 'kien/ctrlp.vim'
 " cursor toggle
-Bundle 'jszakmeister/vim-togglecursor'
+Plug 'jszakmeister/vim-togglecursor'
 " colors and themes
-Bundle 'morhetz/gruvbox'
-Bundle 'daylerees/colour-schemes', { "rtp": "vim/" }
-Bundle 'chriskempson/tomorrow-theme', { "rtp": "vim/" }
+Plug 'morhetz/gruvbox'
+Plug 'daylerees/colour-schemes', { 'rtp': 'vim' }
+Plug 'chriskempson/tomorrow-theme', { 'rtp': 'vim' }
 " window management
-Bundle 'zhaocai/GoldenView.Vim'
+Plug 'zhaocai/GoldenView.Vim'
+" YouCompleteMe - autocomplete
+Plug 'Valloric/YouCompleteMe'
+
 " git
-Bundle 'tpope/vim-fugitive'
+Plug 'tpope/vim-fugitive'
+
 " javascript
 " ref: http://oli.me.uk/2013/06/29/equipping-vim-for-javascript/
-" Bundle 'marijnh/tern_for_vim'
-Bundle 'jelera/vim-javascript-syntax'
-Bundle 'pangloss/vim-javascript'
-Bundle 'nathanaelkane/vim-indent-guides'
-Bundle 'Raimondi/delimitMate'
+" Plug 'marijnh/tern_for_vim'
+Plug 'jelera/vim-javascript-syntax'
+Plug 'pangloss/vim-javascript'
+Plug 'nathanaelkane/vim-indent-guides'
+Plug 'Raimondi/delimitMate'
 " scss
-Bundle 'cakebaker/scss-syntax.vim'
+" Plug 'cakebaker/scss-syntax.vim'
 " python indentation
-Bundle 'hynek/vim-python-pep8-indent'
+Plug 'hynek/vim-python-pep8-indent'
 " html
-Bundle 'mitsuhiko/vim-jinja'
-" code/generic
-Bundle 'scrooloose/syntastic'
-" Bundle 'Valloric/YouCompleteMe'
-" ack.vim - great search
-Bundle 'mileszs/ack.vim'
+" Plug 'mitsuhiko/vim-jinja'
+" apiblueprint
+Plug 'kylef/apiblueprint.vim'
+" applescript
+Plug 'vim-scripts/applescript.vim'
 
-" These are the tweaks I apply to YCM's config, you don't need them but they
-" might help.
-" YCM gives you popups and splits by default that some people might not
-" like, so these should tidy it up a bit for you.
-" let g:ycm_add_preview_to_completeopt=0
-" let g:ycm_confirm_extra_conf=0
-" set completeopt-=preview
+" code/generic
+Plug 'scrooloose/syntastic'
+Plug 'scrooloose/nerdcommenter'
+
+" ack.vim - great search
+Plug 'mileszs/ack.vim'
+" editorconfig
+Plug 'editorconfig/editorconfig-vim'
+
+" Snippets
+Plug 'SirVer/ultisnips'
+" Snippets are separated from the engine. Add this if you want them:
+Plug 'honza/vim-snippets'
+
+call plug#end()
 
 " Goldenview setup
 let g:goldenview__enable_default_mapping=0
@@ -121,9 +130,35 @@ nmap <silent> <C-K>  <Plug>GoldenViewPrevious
 
 " set colorscheme
 colorscheme Tomorrow-Night-Eighties
-set guifont=Menlo:h13
+set guifont=Monaco:h13
 
 " ctrlp setup
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
 let g:ctrlp_working_path_mode = 'ra'
+let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
+
+" syntastic setup
+" ref: https://github.com/scrooloose/syntastic
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 0
+let g:syntastic_check_on_wq = 0
+let g:syntastic_javascript_checkers = ['eslint']
+
+" http://stackoverflow.com/a/680271
+" set clipboard=unnamed
+
+" some copy/paste fixes
+" ref: http://unix.stackexchange.com/a/199207
+set pastetoggle=<F2>
+
+" ultisnips config
+" ref: https://github.com/SirVer/ultisnips
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>" 
