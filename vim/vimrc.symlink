@@ -71,14 +71,15 @@ Plug 'kien/ctrlp.vim'
 Plug 'jszakmeister/vim-togglecursor'
 " colors and themes
 Plug 'morhetz/gruvbox'
-Plug 'daylerees/colour-schemes', { 'rtp': 'vim' }
+" Plug 'daylerees/colour-schemes', { 'rtp': 'vim' }
 Plug 'chriskempson/tomorrow-theme', { 'rtp': 'vim' }
-" window management
-Plug 'zhaocai/GoldenView.Vim'
 " YouCompleteMe - autocomplete
 Plug 'Valloric/YouCompleteMe'
 " git
 Plug 'tpope/vim-fugitive'
+" save session automatically.
+Plug 'xolox/vim-misc'
+Plug 'xolox/vim-session'
 " javascript
 " ref: http://oli.me.uk/2013/06/29/equipping-vim-for-javascript/
 " Plug 'marijnh/tern_for_vim'
@@ -100,7 +101,7 @@ Plug 'vim-scripts/applescript.vim'
 " code/generic
 Plug 'scrooloose/syntastic'
 Plug 'scrooloose/nerdcommenter'
-
+Plug 'tpope/vim-surround'
 " ack.vim - great search
 Plug 'mileszs/ack.vim'
 " editorconfig
@@ -112,7 +113,9 @@ Plug 'editorconfig/editorconfig-vim'
 " Plug 'honza/vim-snippets'
 
 " NERDTree
-Plug 'scrooloose/nerdtree'
+" Plug 'scrooloose/nerdtree'
+" window management
+Plug 'adsahay/GoldenView.Vim'
 
 call plug#end()
 
@@ -151,6 +154,7 @@ let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 0
 let g:syntastic_javascript_checkers = ['eslint']
+let g:syntastic_python_checkers = ['flake8']
 
 " http://stackoverflow.com/a/680271
 " set clipboard=unnamed
@@ -167,4 +171,3 @@ let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 
 " YCM - specify python
 let g:ycm_python_binary_path = 'python3'
-

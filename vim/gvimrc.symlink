@@ -1,33 +1,14 @@
 " mvim specific settings, as vim is more for one-off edits.
 
-" NERDTree settings
-" open a NERDTree automatically when vim starts up
-autocmd vimenter * NERDTree
-map <C-n> :NERDTreeToggle<CR>
-" close vim if the only window left open is a NERDTree
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-
-" ref: http://stackoverflow.com/a/31978241
-function! MakeSession()
-  let b:sessiondir = $HOME . "/.vim/sessions" . getcwd()
-  if (filewritable(b:sessiondir) != 2)
-    exe 'silent !mkdir -p ' b:sessiondir
-    redraw!
-  endif
-  let b:filename = b:sessiondir . '/session.vim'
-  exe "mksession! " . b:filename
-endfunction
-
-function! LoadSession()
-  let b:sessiondir = $HOME . "/.vim/sessions" . getcwd()
-  let b:sessionfile = b:sessiondir . "/session.vim"
-  if (filereadable(b:sessionfile))
-    exe 'source ' b:sessionfile
-  else
-    echo "No session loaded."
-  endif
-endfunction
-
-" Adding automatons for when entering or leaving Vim
-au VimEnter * nested :call LoadSession()
-au VimLeave * :call MakeSession()
+" vim-session settings: https://github.com/xolox/vim-session
+let g:session_autosave = 'yes'
+let g:session_autoload = 'yes'
+" If you don't want help windows to be restored:
+set sessionoptions-=help
+" Don't save hidden and unloaded buffers in sessions.
+set sessionoptions-=buffers
+" Don't persist options and mappings because it can corrupt sessions.
+set sessionoptions-=options
+let g:session_autosave_silent = 'yes'
+let g:session_persist_font = 0
+let g:session_persist_colors = 0
