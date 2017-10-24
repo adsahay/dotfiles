@@ -1,5 +1,6 @@
 set nocompatible
 syntax on
+set encoding=utf-8
 
 " Wrap gitcommit file types at the appropriate length
 filetype indent plugin on
@@ -73,13 +74,14 @@ Plug 'jszakmeister/vim-togglecursor'
 Plug 'morhetz/gruvbox'
 " Plug 'daylerees/colour-schemes', { 'rtp': 'vim' }
 Plug 'chriskempson/tomorrow-theme', { 'rtp': 'vim' }
+Plug 'jpo/vim-railscasts-theme'
 " YouCompleteMe - autocomplete
 Plug 'Valloric/YouCompleteMe'
 " git
 Plug 'tpope/vim-fugitive'
 " save session automatically.
-Plug 'xolox/vim-misc'
-Plug 'xolox/vim-session'
+" Plug 'xolox/vim-misc'
+" Plug 'xolox/vim-session'
 " javascript
 " ref: http://oli.me.uk/2013/06/29/equipping-vim-for-javascript/
 " Plug 'marijnh/tern_for_vim'
@@ -94,12 +96,13 @@ Plug 'hynek/vim-python-pep8-indent'
 " html
 " Plug 'mitsuhiko/vim-jinja'
 " apiblueprint
-Plug 'kylef/apiblueprint.vim'
+" Plug 'kylef/apiblueprint.vim'
 " applescript
-Plug 'vim-scripts/applescript.vim'
+" Plug 'vim-scripts/applescript.vim'
 
 " code/generic
-Plug 'scrooloose/syntastic'
+" ALE replaces syntastic for syntax checking
+Plug 'w0rp/ale'
 Plug 'scrooloose/nerdcommenter'
 Plug 'tpope/vim-surround'
 " ack.vim - great search
@@ -134,7 +137,7 @@ nmap <silent> <C-tab>  <Plug>GoldenViewNext
 nmap <silent> <C-S-tab>  <Plug>GoldenViewPrevious
 
 " set colorscheme
-colorscheme Tomorrow-Night-Eighties
+colorscheme Tomorrow
 set guifont=Monaco:h13
 
 " ctrlp setup
@@ -143,31 +146,15 @@ let g:ctrlp_cmd = 'CtrlP'
 let g:ctrlp_working_path_mode = 'ra'
 let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
 
-" syntastic setup
-" ref: https://github.com/scrooloose/syntastic
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 0
-let g:syntastic_check_on_wq = 0
-let g:syntastic_javascript_checkers = ['eslint']
-let g:syntastic_python_checkers = ['flake8']
-
-" http://stackoverflow.com/a/680271
-" set clipboard=unnamed
-
 " some copy/paste fixes
 " ref: http://unix.stackexchange.com/a/199207
 set pastetoggle=<F2>
 
 " ultisnips config
 " ref: https://github.com/SirVer/ultisnips
-let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<c-b>"
-let g:UltiSnipsJumpBackwardTrigger="<c-z>" 
+" let g:UltiSnipsExpandTrigger="<tab>"
+" let g:UltiSnipsJumpForwardTrigger="<c-b>"
+" let g:UltiSnipsJumpBackwardTrigger="<c-z>" 
 
 " YCM - specify python
 let g:ycm_python_binary_path = 'python3'
