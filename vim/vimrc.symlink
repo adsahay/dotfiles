@@ -99,6 +99,8 @@ Plug 'hynek/vim-python-pep8-indent'
 " Plug 'kylef/apiblueprint.vim'
 " applescript
 " Plug 'vim-scripts/applescript.vim'
+" StatusBar plugin - Lightline
+Plug 'itchyny/lightline.vim'
 
 " code/generic
 " ALE replaces syntastic for syntax checking
@@ -135,6 +137,19 @@ nmap <silent> <S-F8> <Plug>GoldenViewSwitchToggle
 " 3. jump to next and previous window
 nmap <silent> <C-tab>  <Plug>GoldenViewNext
 nmap <silent> <C-S-tab>  <Plug>GoldenViewPrevious
+
+" lightline
+set noshowmode
+let g:lightline = {
+      \ 'colorscheme': 'Tomorrow',
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+      \ },
+      \ 'component_function': {
+      \   'gitbranch': 'fugitive#head'
+      \ },
+      \ }
 
 " set colorscheme
 colorscheme Tomorrow
