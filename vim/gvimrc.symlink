@@ -1,14 +1,3 @@
 " mvim specific settings, as vim is more for one-off edits.
 
-" vim-session settings: https://github.com/xolox/vim-session
-let g:session_autosave = 'yes'
-let g:session_autoload = 'yes'
-" If you don't want help windows to be restored:
-set sessionoptions-=help
-" Don't save hidden and unloaded buffers in sessions.
-set sessionoptions-=buffers
-" Don't persist options and mappings because it can corrupt sessions.
-set sessionoptions-=options
-let g:session_autosave_silent = 'yes'
-let g:session_persist_font = 0
-let g:session_persist_colors = 0
+colorscheme Tomorrow-Night-Eighties

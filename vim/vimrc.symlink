@@ -93,6 +93,8 @@ Plug 'Raimondi/delimitMate'
 " Plug 'cakebaker/scss-syntax.vim'
 " python indentation
 Plug 'hynek/vim-python-pep8-indent'
+" swift
+Plug 'keith/swift.vim'
 " html
 " Plug 'mitsuhiko/vim-jinja'
 " apiblueprint
@@ -141,7 +143,7 @@ nmap <silent> <C-S-tab>  <Plug>GoldenViewPrevious
 " lightline
 set noshowmode
 let g:lightline = {
-      \ 'colorscheme': 'Tomorrow',
+      \ 'colorscheme': 'Tomorrow_Night_Eighties',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
       \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
@@ -152,15 +154,18 @@ let g:lightline = {
       \ }
 
 " set colorscheme
-colorscheme Tomorrow
-set guifont=Monaco:h13
+colorscheme Tomorrow-Night-Eighties
+set guifont=Monaco\ for\ Powerline:h13
 
 " ctrlp setup
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
 let g:ctrlp_working_path_mode = 'ra'
 let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
+nnoremap <silent> <C-R> :CtrlPTag<cr>
 
+" ctags
+ set tags+=.tags
 " some copy/paste fixes
 " ref: http://unix.stackexchange.com/a/199207
 set pastetoggle=<F2>
