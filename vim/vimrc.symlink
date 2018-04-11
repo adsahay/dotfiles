@@ -76,7 +76,17 @@ Plug 'morhetz/gruvbox'
 Plug 'chriskempson/tomorrow-theme', { 'rtp': 'vim' }
 Plug 'jpo/vim-railscasts-theme'
 " YouCompleteMe - autocomplete
-Plug 'Valloric/YouCompleteMe'
+" Plug 'Valloric/YouCompleteMe'
+" Deoplete.nvim - better than YouCompleteMe
+if has('nvim')
+  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+else
+  Plug 'Shougo/deoplete.nvim'
+  Plug 'roxma/nvim-yarp'
+  Plug 'roxma/vim-hug-neovim-rpc'
+endif
+let g:python3_host_prog = '/usr/local/bin/python3'
+let g:deoplete#enable_at_startup = 1
 " git
 Plug 'tpope/vim-fugitive'
 " save session automatically.
@@ -113,6 +123,10 @@ Plug 'tpope/vim-surround'
 Plug 'mileszs/ack.vim'
 " editorconfig
 Plug 'editorconfig/editorconfig-vim'
+
+" Automatically updates tags on save
+Plug 'craigemery/vim-autotag'
+" let g:autotagTagsFile='.git/tags'
 
 " Snippets
 " Plug 'SirVer/ultisnips'
@@ -165,16 +179,7 @@ let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclu
 nnoremap <silent> <C-R> :CtrlPTag<cr>
 
 " ctags
- set tags+=.tags
+ set tags+='.git/tags'
 " some copy/paste fixes
 " ref: http://unix.stackexchange.com/a/199207
 set pastetoggle=<F2>
-
-" ultisnips config
-" ref: https://github.com/SirVer/ultisnips
-" let g:UltiSnipsExpandTrigger="<tab>"
-" let g:UltiSnipsJumpForwardTrigger="<c-b>"
-" let g:UltiSnipsJumpBackwardTrigger="<c-z>" 
-
-" YCM - specify python
-let g:ycm_python_binary_path = 'python3'
