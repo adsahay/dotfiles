@@ -151,22 +151,22 @@ Plug 'Konfekt/FastFold'
 " NERDTree
 " Plug 'scrooloose/nerdtree'
 " window management
-Plug 'adsahay/GoldenView.Vim'
+"Plug 'adsahay/GoldenView.Vim'
 " Goldenview setup
-let g:goldenview__enable_default_mapping=0
-call plug#end()
+"let g:goldenview__enable_default_mapping=0
+"call plug#end()
 
-" 1. split to tiled windows
-nmap <silent> <C-L>  <Plug>GoldenViewSplit
+"" 1. split to tiled windows
+"nmap <silent> <C-L>  <Plug>GoldenViewSplit
 
-" 2. quickly switch current window with the main pane
-" and toggle back
-nmap <silent> <F8>   <Plug>GoldenViewSwitchMain
-nmap <silent> <S-F8> <Plug>GoldenViewSwitchToggle
+"" 2. quickly switch current window with the main pane
+"" and toggle back
+"nmap <silent> <F8>   <Plug>GoldenViewSwitchMain
+"nmap <silent> <S-F8> <Plug>GoldenViewSwitchToggle
 
-" 3. jump to next and previous window
-nmap <silent> <tab>  <Plug>GoldenViewNext
-nmap <silent> <S-tab>  <Plug>GoldenViewPrevious
+"" 3. jump to next and previous window
+"nmap <silent> <tab>  <Plug>GoldenViewNext
+"nmap <silent> <S-tab>  <Plug>GoldenViewPrevious
 
 " python syntax highlighting
 let g:python_highlight_all = 1
